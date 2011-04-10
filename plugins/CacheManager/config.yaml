@@ -3,7 +3,7 @@ name: "Module Cache Manager"
 description: "This plugin provides additional functionality to Movable Type to assist in the management of template module caches."
 author_name: Endevver
 author_link: http://www.endevver.com/
-version: 1.0
+version: 1.0.1
 
 callbacks:
     MT::App::CMS::template_source.list_template: $CacheManager::CacheManager::Plugin::xfrm_list

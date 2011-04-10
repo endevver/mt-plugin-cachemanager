@@ -8,7 +8,7 @@ use MT::Util qw( encode_html );
 
 sub itemset_clearcache {
     my $app = shift;
-    my $q = $app->{query};
+    my $q = $app->can('query') ? $app->query : $app->param;
     $app->validate_magic or return $app->error("Invalid magic");
     my @tmpls = $q->param('id');
     for my $tmpl_id (@tmpls) {
@@ -29,7 +29,7 @@ sub itemset_clearcache {
 
 sub itemset_viewcache {
     my $app = shift;
-    my $q = $app->{query};
+    my $q = $app->can('query') ? $app->query : $app->param;
     $app->validate_magic or return $app->error("Invalid magic");
     my @tmpls = $q->param('id');
     for my $tmpl_id (@tmpls) {
@@ -49,7 +49,8 @@ sub itemset_viewcache {
 
 sub xfrm_list {
     my ($cb, $app, $tmpl) = @_;
-    if ($app->param('cache_flushed')) {
+    my $q = $app->can('query') ? $app->query : $app->param;
+    if ($q->param('cache_flushed')) {
     my $slug1 = <<END_TMPL;
       <mtapp:statusmsg
           id="cache-flushed"
